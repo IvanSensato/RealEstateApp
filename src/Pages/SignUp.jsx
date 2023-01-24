@@ -9,6 +9,7 @@ import {useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 
+
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const[formData, setFormData] = useState({
@@ -86,13 +87,13 @@ export default function SignUp() {
               transition duration-200 ease-in-out ml-1" to="/sign-in">Sign in</Link>
             </p>
             <p>
-              <Link className="text-blue-300 hover:text-blue-600
+              <Link className="text-sensato-blue hover:text-blue-800
               transition duration-200 ease-in-out ml-1" to="/forgot-password"> Forgot password?
               </Link>
             </p>
           </div>
-          <button className="text-white w-full bg-blue-600 px-7 py-3 text-sm font-medium
-          uppercase rounded shadow-md hover:bg-blue-700 transition duration-150 ease-in-out
+          <button className="text-white w-full bg-[#103FD5] px-7 py-3 text-sm font-medium
+          uppercase rounded shadow-md hover:bg-blue-800 transition duration-150 ease-in-out
           hover:shadow-lg active:bg-blue-800" type="submit">Sign Up</button>
            <div className="my-4 flex items-center before:border-t before:flex-1 before:border-gray-300
             after:border-t after:flex-1 after:border-gray-300">

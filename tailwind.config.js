@@ -3,7 +3,11 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'sensato-blue': '#103FD5',
+      }
+    },
   },
   plugins: [require('@tailwindcss/forms')],
 }
