@@ -11,15 +11,34 @@ export default function CreateListing() {
         furnished: false,
         address: "",
         description: "",
-        offer: true,
+        offer: false,
         regularPrice:0,
         discountedPrice:0,
     });
     const { type, name, bedrooms, bath, parking, furnished, address, description,
     offer, regularPrice, discountedPrice } = formData;
 
-function onChange(){
-
+function onChange(e){
+  let boolean = null;
+  if (e.target.value === "true"){
+    boolean = true;
+  }
+  if (e.target.value === "false"){
+    boolean = false;
+  }
+  if (e.target.files){
+    setFormData((prevState)=> ({
+      ...prevState,
+      images: e.target.files,
+    }));
+  }
+    if (!e.target.files) {
+      setFormData((prevState) => ({
+        ...prevState,
+        [e.target.id]: boolean ?? e.target.value,
+      }));
+    }
+  
 }
 
   return (
@@ -36,7 +55,7 @@ function onChange(){
               }`} >
                 sell
                 </button>
-                <button type='button' id='type' value="sale"
+                <button type='button' id='type' value="rent"
               onClick={onChange} className={`ml-3 px-7 py-3 font-medium text-sm
               uppercase shadow-md rounded bg-white text-black hover:shadow-lg
               active:shadow-lg transition duration-150 ease-in-out w-full ${
@@ -46,8 +65,8 @@ function onChange(){
                 </button>    
             </div>
             <p className='text-lg mt-6 font-semibold'>Name </p>
-            <input type="text" id='type' value={name} onChange=
-            {onchange} placeholder="Property Name" maxLength="32" minLength="10" required
+            <input type="text" id='name' value={name} onChange=
+            {onChange} placeholder="Property Name" maxLength="32" minLength="10" required
             className='w-full px-4 py-2 text-grey-600 border border-gray-300 rounded
             transition duration-150 ease-in-out focus:text-gray-700  focus:border-blue-600 focus:bg-white mb-6' />
             <div className='flex space-x-6 mb-6'>
@@ -61,7 +80,7 @@ function onChange(){
                 </div>
                 <div className=''>
                     <p className='text-lg font-semibold'>Baths</p>
-                    <input type="number" id='bedrooms' value={bath}
+                    <input type="number" id='bath' value={bath}
                     onChange={onChange} min="1" max="50" required
                     className='w-full px-4 py-2 text-xl text-gray-700 boarder border-gray-700 rounded 
                     transition duration-150 ease-in-out
@@ -88,7 +107,7 @@ function onChange(){
                 </button>    
             </div>
             <p className='text-lg mt-6 font-semibold'>Furnished</p>
-            <div className='flex'>
+            <div className='flex mb-6'>
               <button type='button' id='furnished' value={true}
               onClick={onChange} className={`mr-3 px-7 py-3 font-medium text-sm
               uppercase shadow-md rounded bg-white text-black hover:shadow-lg
@@ -106,15 +125,16 @@ function onChange(){
                 No
                 </button>    
             </div>
-            <p className='text-lg mt-6 font-semibold'>Address</p>
+            
+            <p className='text-lg font-semibold'>Address</p>
             <textarea type="text" id='address' value={address} onChange=
-            {onchange} placeholder="Input adress" maxLength="32" minLength="10" required
+            {onChange} placeholder="Input address" maxLength="32" minLength="10" required
             className='w-full px-4 py-2 text-grey-600 border border-grey-300 rounded
             transition duration-150 ease-in-out focus:text-gray-700  focus:border-blue-600 focus:bg-white mb-6' />
            
             <p className='text-lg font-semibold'>Description</p>
             <textarea type="text" id='description' value={description} onChange=
-            {onchange} placeholder="Input description" maxLength="32" minLength="10" required
+            {onChange} placeholder="Input description" maxLength="32" minLength="10" required
             className='w-full px-4 py-2 text-grey-600 border border-grey-300 rounded
             transition duration-150 ease-in-out focus:text-gray-700  focus:border-blue-600 focus:bg-white mb-6' />
         
@@ -149,7 +169,7 @@ function onChange(){
                       focus:text-gray-700 focus:bg-white focus:border-blue-600' />
                   {type === "rent" &&(
                     <div>
-                        <p className='w-full text-md whitespace-nowrap'>$ / Mont</p>
+                        <p className='w-full text-white text-md whitespace-nowrap'>$ / Mont</p>
                     </div>
                     )}
                  </div>
