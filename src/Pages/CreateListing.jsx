@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
+import Spinner from '../components/Spinner'
 
 export default function CreateListing() {
-    
+    const [geolocationEnabled, setGeolocationEnable] = useState(true);
+    const [loading, setLoading ] = useState(false);
     const[formData, setFormData] = useState({
         type: "rent",
         name: "",
@@ -14,9 +16,11 @@ export default function CreateListing() {
         offer: false,
         regularPrice:0,
         discountedPrice:0,
+        latitude: 0,
+        longitude: 0,
     });
     const { type, name, bedrooms, bath, parking, furnished, address, description,
-    offer, regularPrice, discountedPrice } = formData;
+    offer, regularPrice, discountedPrice, latitude, longitude } = formData;
 
 function onChange(e){
   let boolean = null;
@@ -41,10 +45,18 @@ function onChange(e){
   
 }
 
+function onSubmit(e){
+  e.preventDefault();
+  setLoading(true);
+}
+
+if (loading){
+  return <Spinner> </Spinner>
+}
   return (
     <main className='max-w-md px-2 mx-auto text-white'>
         <h1 className='text-3xl text-white text-center mt-6 font-bold'>Create a Listing</h1>
-        <form>
+        <form onSubmit={onSubmit}>
             <p className='text-lg mt-6 font-semibold'>Sell / Rent</p>
             <div className='flex'>
               <button type='button' id='type' value="sale"
@@ -67,7 +79,7 @@ function onChange(e){
             <p className='text-lg mt-6 font-semibold'>Name </p>
             <input type="text" id='name' value={name} onChange=
             {onChange} placeholder="Property Name" maxLength="32" minLength="10" required
-            className='w-full px-4 py-2 text-grey-600 border border-gray-300 rounded
+            className='w-full px-4 py-2 text-gray-700 border border-gray-300 rounded
             transition duration-150 ease-in-out focus:text-gray-700  focus:border-blue-600 focus:bg-white mb-6' />
             <div className='flex space-x-6 mb-6'>
                 <div className=''>
@@ -129,15 +141,36 @@ function onChange(e){
             <p className='text-lg font-semibold'>Address</p>
             <textarea type="text" id='address' value={address} onChange=
             {onChange} placeholder="Input address" maxLength="32" minLength="10" required
-            className='w-full px-4 py-2 text-grey-600 border border-grey-300 rounded
+            className='w-full px-4 py-2 text-gray-600 border border-grey-300 rounded
             transition duration-150 ease-in-out focus:text-gray-700  focus:border-blue-600 focus:bg-white mb-6' />
-           
+              {!geolocationEnabled && (
+              <div className='flex space-x-6 justify-start mb-6'>
+                <div>
+                  <p className='text-lg font-semibold'>Latitude</p>
+                  <input type="number" id="latitude" value={latitude}
+                  onChange={onChange} required
+                  min="-90"
+                  max="90"
+                  className=' w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300
+                  rounded transition duration-150 ease-out focus:border-blue-300 ' />
+                </div>
+                <div>
+                  <p className='text-lg font-semibold'>Longitude</p>
+                  <input type="number" id="longitude" value={longitude}
+                  onChange={onChange} required
+                  min="-180"
+                  max="180"
+                  className=' w-full px-4 py-2 text-xl text-center text-gray-700 bg-white border border-gray-300
+                  rounded transition duration-150 ease-out focus:border-blue-300 ' />
+                </div>
+              </div>
+            )}
             <p className='text-lg font-semibold'>Description</p>
             <textarea type="text" id='description' value={description} onChange=
             {onChange} placeholder="Input description" maxLength="32" minLength="10" required
-            className='w-full px-4 py-2 text-grey-600 border border-grey-300 rounded
+            className='w-full px-4 py-2 text-gray-600 border border-grey-300 rounded
             transition duration-150 ease-in-out focus:text-gray-700  focus:border-blue-600 focus:bg-white mb-6' />
-        
+            
         <p className='text-lg  font-semibold'>Offer</p>
             <div className='flex mb-6'>
               <button type='button' id='offer' value={true}
@@ -158,25 +191,28 @@ function onChange(e){
                 </button>    
             </div>
             
-            <div className='flex items-center mb-6'>
-                 <div className=''>
-                 <p className='text-lg font-semibold'>Regular Price</p>
-                 <div className='flex w-full items-center justify-center space-x-6'>
-                 <input type="number" id='regularPrice' value={regularPrice}
-                     onChange={onChange} min="50" max="4000000" required={offer}
-                     className='w-full px-4 py-2 text-xl text-gray-700 boarder border-gray-700 rounded 
-                     transition duration-150 ease-in-out text-center
-                      focus:text-gray-700 focus:bg-white focus:border-blue-600' />
-                  {type === "rent" &&(
-                    <div>
-                        <p className='w-full text-white text-md whitespace-nowrap'>$ / Mont</p>
-                    </div>
+            
+              <div className='flex items-center mb-6'>
+                <div className=''>
+                   <p className='text-lg font-semibold'>Regular Price</p>
+                  <div className='flex w-full items-center justify-center space-x-6'>
+                    
+                      <input type="number" id='regularPrice' value={regularPrice}
+                        onChange={onChange} min="50" max="4000000" required={offer}
+                        className='w-full px-4 py-2 text-xl text-gray-700 boarder border-gray-700 rounded 
+                        transition duration-150 ease-in-out text-center
+                       focus:text-gray-700 focus:bg-white focus:border-blue-600' />
+                    
+                    {type === "rent" &&(
+                      <div>
+                         <p className='w-full text-md whitespace-nowrap'>$ / Mont</p>
+                      </div>
                     )}
-                 </div>
-                 </div>
-            </div>
+                  </div>
+                </div>
+              </div>
               {offer && (
-                 <div className='flex items-center mb-6'>
+              <div className='flex items-center mb-6'>
                  <div className=''>
                  <p className='text-lg font-semibold'>Discounted Price</p>
                  <div className='flex w-full items-center justify-center space-x-6'>
@@ -192,7 +228,7 @@ function onChange(e){
                     )}
                  </div>
                  </div>
-             </div>
+              </div>
               )}
             <div className='mb-6'>
                 <p className='text-lg font-semibold'>Images</p>
