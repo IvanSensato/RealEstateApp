@@ -12,7 +12,7 @@ export default function Profile() {
   const navigate = useNavigate();
   const [changeDetail, SetChangeDetail] = useState(false);
   const [listings, setListings] = useState(null)
-  const [loading, setLoading] = useState(null)
+  const [loading, setLoading] = useState(true)
   const [formData, setFormData] = useState({
     name: auth.currentUser.displayName,
     email: auth.currentUser.email,
@@ -49,6 +49,7 @@ export default function Profile() {
   }
   useEffect(()=>{
     async function fetchUserListings(){
+      setLoading(true);
       const listingRef = collection(db, "listings");
       const q =query(listingRef, where("userRef", "==",auth.currentUser.uid),
       orderBy("timestamp", "desc")
@@ -127,7 +128,8 @@ export default function Profile() {
       {!loading && listings.length > 0 && (
         <>
         <h2 className="text 2xl text-center font-semibold">My Listings</h2>
-        <ul>
+        <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl-:grid-cols-4
+        2xl-grid-cols-5 mt-6 mb-6">
           {listings.map((listings)=>(
             < ListingItem 
             key={listings.id}
@@ -140,5 +142,6 @@ export default function Profile() {
       )}
     </div>
     </>
+    
   )
 }
