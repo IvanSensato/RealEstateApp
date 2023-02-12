@@ -7,7 +7,7 @@ import { MdEdit } from "react-icons/md";
 
 export default function ListingItem({listing, id, onEdit, onDelete}) {
   return (
-  <li className='overflow-hidden relative bg-sensato-blue flex flex-col justify-between
+  <li className='overflow-hidden relative bg-bgcard flex flex-col justify-between
   items-center shadow-md hover:shadow-xl rounded-md
   transition-shadow duration-150 m-[10px]'>
     <Link to ={`/category/${listing.type}/${id}`}>

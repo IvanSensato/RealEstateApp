@@ -6,6 +6,7 @@ module.exports = {
     extend: {
       colors: {
         'sensato-blue': '#103FD5',
+        "bgcard": "#252525"
       }
     },
   },
