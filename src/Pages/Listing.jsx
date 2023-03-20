@@ -8,12 +8,17 @@ import SwiperCore, {EffectFade, Autoplay, Navigation,Pagination} from "swiper"
 import "swiper/css/bundle"
 import { FiShare2 } from "react-icons/fi";
 import { FaMapMarkerAlt, FaBed, FaBath, FaParking,FaChair  } from "react-icons/fa";
+import {getAuth} from "firebase/auth";
+import Contact from '../components/Contact';
+
 
 export default function Listing() {
+    const auth = getAuth()
     const params = useParams()
     const [listing, setListing] = useState(null)
     const [loading, setLoading] = useState(true)
     const[shareLinkCopied, setShareLinkCopied] = useState(false)
+    const[contactLandlord, setContactLandlord] = useState(false)
     SwiperCore.use([
         Autoplay,
         Navigation,
@@ -71,7 +76,7 @@ export default function Listing() {
 
         <div className='flex flex-col md:flex-row max-w-6xl lg:mx-auto m-4 p-4 rounded-lg
          bg-white space-x-2'>
-            <div className=' w-full h-[200px] lg-[400px] '>
+            <div className=' w-full '>
                 <p className='text-2xl font-bold mb-3 text-blue-900'>
                     {listing.name} - ${listing.offer ? listing.discountedPrice.toString()
             .replace(/\B(?=(\d{3})+(?!\d))/g, ","):
@@ -101,7 +106,7 @@ export default function Listing() {
                     </span>
                     {listing.description}
                 </p>
-                <ul className='flex items-center space-x-2 sm:space-x-10 text-sm font-semibold'>
+                <ul className='flex items-center space-x-2 sm:space-x-10 text-sm font-semibol mb-6'>
                     <li className='flex item-center whitespace-nowrap'>
                         <FaBed className='text-lg mr-1'/>
                         {+listing.bedrooms > 1 ? `${listing.bedrooms} Beds`: 
@@ -123,9 +128,23 @@ export default function Listing() {
                         "Not Furnished "}
                     </li>
                 </ul>
+                {listing.userRef !== auth.currentUser?.uid
+                 && !contactLandlord && (
+
+                <div className=' mt-6'>
+                <button onClick={()=> setContactLandlord(true)} className=' px-7 py-3 bg-blue-600 text-white
+                font-medium text-sm uppercase rounded shadow-md
+                hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700
+                w-full text-center transition duration-150 ease-in-out'>Contact Lanlord</button> 
+                </div>
+                )}
+                {contactLandlord && <Contact
+                userRef ={listing.userRef} listing={listing} />}
             </div>
+
             <div className='bg-blue-300 w-full h-[200px] lg-[400px]'></div>
         </div>
+
 
     </main>
   )
