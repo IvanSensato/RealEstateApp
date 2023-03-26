@@ -1,7 +1,10 @@
-import React from 'react'
+import Slider from '../components/Slider'
 
 export default function Home() {
+
   return (
-    <div className='text-white text-center mt-6'>Sensatos Real Estate</div>
+    <div className='text-white'>
+     < Slider />
+     </div>
   )
 }
