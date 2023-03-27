@@ -45,7 +45,7 @@ export default function Slider() {
   }
   return ( listings && ( <>
  <Swiper
-  slidesPerView={1}
+  slidesPerView={0}
   navigation
   pagination={{type: "progressbar"}}
   effect="fade"
