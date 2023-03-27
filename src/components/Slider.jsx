@@ -45,7 +45,7 @@ export default function Slider() {
   }
   return ( listings && ( <>
  <Swiper
-  slidesPerView={0}
+  slidesPerView={1}
   navigation
   pagination={{type: "progressbar"}}
   effect="fade"
@@ -54,8 +54,8 @@ export default function Slider() {
  >
     {listings.map(({data, id})=> (
     <SwiperSlide key={id} onClick={()=>navigate(`/category/${data.type}/${id}`)}>
-      <div style={{background:`url(${data.imgUrls[1]}) center, no-repeat`,backgroundSize: "cover" }}
-      className = "relative w-full h-[300px] overflow-hidden justify-center"
+      <div style={{background:`url(${data.imgUrls[0]}) center, no-repeat`,backgroundSize: "cover" }}
+      className = "relative h-[400px] overflow-hidden justify-center "
       ></div>
       <p className='text-[#f1faee] absolute left-1 top-3 ml-2 font-medium
       max-w-90% bg-[#457b9d] rounded p-2'>{data.name}</p>

@@ -272,7 +272,7 @@ if (loading){
             )}
             <p className='text-lg font-semibold'>Description</p>
             <textarea type="text" id='description' value={description} onChange=
-            {onChange} placeholder="Input description" maxLength="32" minLength="10" required
+            {onChange} placeholder="Input description" maxLength="500" minLength="10" required
             className='w-full px-4 py-2 text-gray-600 border border-grey-300 rounded
             transition duration-150 ease-in-out focus:text-gray-700  focus:border-blue-600 focus:bg-white mb-6' />
             
@@ -290,7 +290,7 @@ if (loading){
               onClick={onChange} className={`ml-3 px-7 py-3 font-medium text-sm
               uppercase shadow-md rounded bg-white text-black hover:shadow-lg
               active:shadow-lg transition duration-150 ease-in-out w-full ${
-                offer ? "bg-white": "bg- text-white"
+                offer ? "bg-white": "bg-blue-600 text-white"
               }`} >
                 No
                 </button>    
