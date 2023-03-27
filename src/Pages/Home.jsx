@@ -1,5 +1,5 @@
-import { async } from '@firebase/util'
-import { collection, getDoc, getDocs, limit, orderBy, query, where } from 'firebase/firestore'
+
+import { collection, getDocs, limit, orderBy, query, where } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Slider from '../components/Slider'
